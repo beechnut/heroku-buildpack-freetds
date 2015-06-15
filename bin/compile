@@ -30,8 +30,9 @@ puts `cp -r #{BUILD_DIR}/vendor/freetds /app/vendor/freetds`
 puts `mkdir -p #{CACHE_DIR}/vendor/freetds`
 puts `cp -r #{BUILD_DIR}/vendor/freetds #{CACHE_DIR}/vendor/freetds`
 
-puts "-----> Locating FreeTDS in #{BUILD_DIR}, #{CACHE_DIR}, /app"
+puts "-----> Locating FreeTDS in #{BUILD_DIR}, #{CACHE_DIR}"
 puts `ls #{BUILD_DIR}/vendor/freetds`
+puts `ls #{CACHE_DIR}/vendor/freetds`
 
 puts "-----> Writing FreeTDS configuration for subsequent buildpack"
 File.open("export", "w") do |file|
