@@ -1,9 +1,13 @@
 #!/usr/bin/env
 
+echo '-----> Releasing FreeTDS'
+
 cat <<EOF
---- {}
+---
 PATH:            "/app/vendor/freetds/bin:$PATH"
 FREETDS_DIR:     /app/vendor/freetds
 FREETDS_INCLUDE: /app/vendor/freetds/include
 LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:/app/vendor/freetds"
 EOF
+
+echo 'Done'
