@@ -31,11 +31,12 @@ puts  "-----> Confirming FreeTDS is copied to #{BUILD_DIR}"
 print `ls #{BUILD_DIR}/vendor/freetds/`
 
 puts  "-----> Writing FreeTDS configuration for subsequent buildpack"
-print `export PATH="/app/vendor/freetds/bin:$PATH"`
-print `export FREETDS_DIR="/app/vendor/freetds"`
-print `export FREETDS_INCLUDE="/app/vendor/freetds/include"`
-print `export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/freetds"`
+`export PATH="/app/vendor/freetds/bin:$PATH"`
+`export FREETDS_DIR="/app/vendor/freetds"`
+`export FREETDS_INCLUDE="/app/vendor/freetds/include"`
+`export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/freetds"`
 
+puts "\tWriting file ./export"
 File.open("export", "w") do |file|
   file.write 'export PATH="/app/vendor/freetds/bin:$PATH"'
   file.write 'export FREETDS_DIR=/app/vendor/freetds'
@@ -43,6 +44,7 @@ File.open("export", "w") do |file|
   file.write 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/freetds"'
 end
 
+puts "\tWriting file #{BUILD_DIR}/profile.d/"
 print `mkdir -p #{BUILD_DIR}/profile.d/`
 File.open("#{BUILD_DIR}/profile.d/freetds.sh", "w") do |file|
   file.write 'export PATH="/app/vendor/freetds/bin:$PATH"'
@@ -52,5 +54,4 @@ File.open("#{BUILD_DIR}/profile.d/freetds.sh", "w") do |file|
 end
 
 puts  "-----> Checking FreeTDS configuration for subsequent buildpack"
-puts `cat export`
 puts `cat #{BUILD_DIR}/profile.d/freetds.sh`
