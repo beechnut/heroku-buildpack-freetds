@@ -28,7 +28,7 @@ print `mkdir -p #{BUILD_DIR}/vendor/freetds`
 print `cp -r /app/vendor/freetds #{BUILD_DIR}/vendor/freetds`
 
 puts  "-----> Confirming FreeTDS is copied to #{BUILD_DIR}"
-print `ls #{BUILD_DIR}/vendor/freetds/bin`
+print `ls #{BUILD_DIR}/vendor/freetds/`
 
 puts  "-----> Writing FreeTDS configuration for subsequent buildpack"
 print `export PATH="/app/vendor/freetds/bin:$PATH"`
