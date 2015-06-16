@@ -13,15 +13,15 @@ puts  "-----> Fetching & Extracting FreeTDS #{VERSION}"
 print `mkdir -p #{CACHE_DIR}`
 print `curl ftp://ftp.freetds.org/pub/freetds/stable/#{ARCHIVE_NAME}.tar.gz -o - | tar -xz -C #{CACHE_DIR} -f -`
 
-puts  "-----> Configurating FreeTDS"
+puts  "-----> Configurating, Building, and Installing FreeTDS"
 print `mkdir -p /app/vendor/freetds`
-print `cd #{CACHE_DIR}/#{ARCHIVE_NAME} && ./configure --prefix=/app/vendor/freetds`
+print `cd #{CACHE_DIR}/#{ARCHIVE_NAME} && ./configure --prefix=/app/vendor/freetds && make && make install`
 
-puts  "-----> Building FreeTDS"
-print `cd #{CACHE_DIR}/#{ARCHIVE_NAME} && make`
+# puts  "-----> Building FreeTDS"
+# print `cd #{CACHE_DIR}/#{ARCHIVE_NAME} && make`
 
-puts  "-----> Installing FreeTDS into /app/vendor/freetds"
-print `cd #{CACHE_DIR}/#{ARCHIVE_NAME} && make install`
+# puts  "-----> Installing FreeTDS into /app/vendor/freetds"
+# print `cd #{CACHE_DIR}/#{ARCHIVE_NAME} && make install`
 
 puts  "-----> Copying FreeTDS into #{BUILD_DIR}"
 print `mkdir -p #{BUILD_DIR}/vendor/freetds`
@@ -32,8 +32,8 @@ print `ls #{BUILD_DIR}/vendor/freetds/`
 
 puts  "-----> Writing FreeTDS configuration for subsequent buildpack"
 print `export PATH="/app/vendor/freetds/bin:$PATH"`
-print `export FREETDS_DIR=/app/vendor/freetds`
-print `export FREETDS_INCLUDE=/app/vendor/freetds/include`
+print `export FREETDS_DIR="/app/vendor/freetds"`
+print `export FREETDS_INCLUDE="/app/vendor/freetds/include"`
 print `export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/freetds"`
 
 File.open("export", "w") do |file|
